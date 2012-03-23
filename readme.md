@@ -1,4 +1,4 @@
-This file is JsDoc annotations for [BusterJS][]
+This file is JSDoc annotations for [BusterJS][]
 
 [BusterJS]:http://busterjs.org/ "Buster.JS"
 
