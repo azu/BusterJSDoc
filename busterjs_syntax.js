@@ -22,10 +22,6 @@ buster.console.log = function(target){
  * @param tests {Object} The tests object can contain test functions, nested test cases, setup and teardown.
  */
 buster.testCase = function testCase(name, tests){
-    tests.setUp = function(){
-    }
-    tests.tearDown = function(){
-    }
 }
 
 // ------------------ Spec ----------------------//
@@ -44,7 +40,7 @@ buster.spec.expose = function(){
  * @param name {String}
  * @param callback {Object}
  * @see spec.describe
-*/
+ */
 buster.spec.describe = function describe(name, callback){
 
 }
@@ -85,9 +81,10 @@ buster.assertions.on = function on(event, handler){
  * @param [message]
 
  */
-buster.assertions.assert = function assert(actual, message){
+function assert(actual, message){
 
 }
+buster.assertions.assert = assert;
 /**
  * Fails if actual is not the same object (===) as expected
  * @param expected
@@ -269,9 +266,10 @@ buster.assertions.assert.calledWith = function calledWith(spy, arg1){
  * @param actual
  * @param [message]
  */
-buster.assertions.refute = function refute(actual, message){
+function refute(actual, message){
 
-};
+}
+buster.assertions.refute = refute;
 // senseless...
 (function(){
 
