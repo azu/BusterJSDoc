@@ -5,7 +5,7 @@
  */
 
 var buster = {};
-buster._getGlobal = function(){
+buster._getGlobal = function (){
     function getGlobal(){
         return this;
     }
@@ -14,12 +14,14 @@ buster._getGlobal = function(){
 }
 
 buster.console = {};
-buster.console.log = function(target){
+buster.console.log = function (target){
 }
 /**
  * Returns a testContext that can be run with buster.testRunner.
- * @param name {String} name is an arbitrary string
- * @param tests {Object} The tests object can contain test functions, nested test cases, setup and teardown.
+ * @param {String} name name is an arbitrary string
+ * @param {Object} tests  The tests object can contain test functions, nested test cases, setup and teardown.
+ * @param {Function} [tests.setUp]  A function that will run before each test.
+ * @param {Function} [tests.tearDown] A function that will run after each test.
  */
 buster.testCase = function testCase(name, tests){
 }
@@ -27,18 +29,18 @@ buster.testCase = function testCase(name, tests){
 // ------------------ Spec ----------------------//
 // http://busterjs.org/docs/test/spec/index.html //
 buster.spec = {};
-buster.spec.expose = function(){
+buster.spec.expose = function (){
     var global = buster._getGlobal();
     var keys = Object.keys(buster.spec);
-    for (var i = 0, len = keys.length; i < len; i++){
+    for (var i = 0, len = keys.length; i < len; i++) {
         var key = keys[i];
         global[key] = buster.spec[key];
     }
 }
 /**
  * Creates a specification
- * @param name {String}
- * @param callback {Object}
+ * @param {String} name
+ * @param {Object} callback
  * @see spec.describe
  */
 buster.spec.describe = function describe(name, callback){
@@ -81,10 +83,11 @@ buster.assertions.on = function on(event, handler){
  * @param [message]
 
  */
-function assert(actual, message){
 
-}
-buster.assertions.assert = assert;
+buster.assertions.assert = function assert(actual, message){
+
+};
+this.assert = buster.assertions.assert;
 /**
  * Fails if actual is not the same object (===) as expected
  * @param expected
@@ -109,6 +112,22 @@ buster.assertions.assert.equals = function equals(expected, actual, message){
  * @param [message]
  */
 buster.assertions.assert.typeOf = function typeOf(object, expected, message){
+};
+/**
+ * Fails if actual is equal to or less than expected.
+ * @param object
+ * @param expected
+ * @param [message]
+ */
+buster.assertions.assert.greater = function greater(object, expected, message){
+};
+/**
+ * Fails if actual is equal to or greater than expected.
+ * @param object
+ * @param expected
+ * @param [message]
+ */
+buster.assertions.assert.less = function less(object, expected, message){
 };
 /**
  * Fails if object is undefined.
@@ -266,17 +285,17 @@ buster.assertions.assert.calledWith = function calledWith(spy, arg1){
  * @param actual
  * @param [message]
  */
-function refute(actual, message){
 
-}
-buster.assertions.refute = refute;
+buster.assertions.refute = function refute(actual, message){
+};
+this.refute = buster.assertions.refute;
 // senseless...
-(function(){
+(function (){
 
     var keys = Object.keys(buster.assertions.assert);
-    for (var i = 0, len = keys.length; i < len; i++){
+    for (var i = 0, len = keys.length; i < len; i++) {
         var key = keys[i];
-        buster.assertions.refute[key] = function(arg){
+        buster.assertions.refute[key] = function (arg){
             return !buster.assertions.assert[key](arg);
         }
     }
